@@ -1,0 +1,109 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1 col-md-1">
+    </div>
+
+    <div class="col-sm-10 col-md-10 main">
+        <div class="jumbotron">
+            <h1><%= @pro.name %></h1>
+            <p class="lead"><%= @pro.desc %></p>
+            <img src="<%= @pro.img %>" width="300px"><p></p>
+            <p><a class="btn btn-lg btn-success" href="#" role="button"><%= @pro.price.to_i / @pro.weight.to_i %>원/g</a>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">평가하기</button></p>
+            <h5> <%= @pro.price %>원, <%= @pro.weight %>g</h5>
+        </div>
+
+      <h1 class="page-header">가성비결과</h1>
+
+      <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>가격</h4>
+          <span class="text-muted">님 살 수 있음?</span>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>맛</h4>
+          <span class="text-muted">먹을만함?</span>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>가성비</h4>
+          <span class="text-muted">가격대비성능?</span>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4>평가</h4>
+          <span class="text-muted">최종평가?</span>
+        </div>
+      </div>
+
+      <h2 class="sub-header">개별평가</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>평가자</th>
+              <th>가격</th>
+              <th>맛</th>
+              <th>가성비</th>
+              <th>평가</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>홍두</td>
+              <td>존나비싸</td>
+              <td>꿀맛</td>
+              <td>비싼데 괜춚</td>
+              <td>ㅋㅋㅋ</td>
+            </tr>
+            <tr>
+              <td>김리뷰</td>
+              <td>괜춚</td>
+              <td>맛쩔</td>
+              <td>몰라</td>
+              <td>안먹어</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>    
+    <!-- Button trigger modal -->
+    <p><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">평가하기</button></p>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">평가하기</h4>
+          </div>
+          <div class="modal-body">
+            <p>가격: <span class="star-rating small_star"><i></i><i></i><i></i><i></i><i></i></span></p>
+            <p>맛: <span class="star-rating small_star"><i></i><i></i><i></i><i></i><i></i></span></p>
+            <p>가성비: <span class="star-rating small_star"><i></i><i></i><i></i><i></i><i></i></span></p>
+            <p>평가: <div class="form-group"><input type="text" class="form-control" name="price" placeholder="총평을 입력해주세요"></div></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+            <button type="button" class="btn btn-primary">완료</button>
+          </div>
+        </div>
+      </div>
+    </div>    
+
+    </div>
+    
+
+    <div class="col-sm-1 col-md-1">
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').focus()
+    })
+  </script>

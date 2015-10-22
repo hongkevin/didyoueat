@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    
+    <div class="col-sm-1 col-md-1">
+    </div>
+    
+    <div class="col-sm-10 col-md-10">
+        <div class="jumbotron">
+            <h1><%= @banner.name %></h1>
+            <p class="lead"><%= @banner.desc %></p>
+            <img src="<%= @banner.img %>" width="300px"><p></p>
+            <span class="star-rating">
+              <input type="radio" name="rating" value="1"><i></i>
+              <input type="radio" name="rating" value="2"><i></i>
+              <input type="radio" name="rating" value="3"><i></i>
+              <input type="radio" name="rating" value="4"><i></i>
+              <input type="radio" name="rating" value="5"><i></i>
+            </span>
+            <p><a class="btn btn-lg btn-success" href="/home/detail/<%= @banner.id %>" role="button"><%= @gsb_banner %>원/g</a></p>
+            <h5><%= @banner.price %>원, <%= @banner.weight %>g</h5>
+        </div>
+
+      <h1 class="page-header">평가상품</h1>
+
+      <div class="row placeholders">
+        <% @pros.each do |p| %>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <img src="<%= p.img.url %>" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4><%= p.name %></h4>
+          <span class="star-rating small_star">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+          <p>  
+          <% unless p.weight.to_i == 0 %>
+            <h5>창렬지수: &nbsp <%= p.price.to_i / p.weight.to_i %></h5>
+          <% end %>
+          </p>
+          <span class="text-muted"></span>
+        <p><a class="btn btn-sm btn-success" href="/home/detail/<%= p.id %>" role="button">자세히 보기</a></p>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="col-sm-1 col-md-1">
+    </div>
+  
+  </div>
+</div>
