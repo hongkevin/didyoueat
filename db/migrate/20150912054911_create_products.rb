@@ -4,9 +4,12 @@ class CreateProducts < ActiveRecord::Migration
       
       t.string  :name
       t.text    :desc
-      t.string  :img
+      t.text  :img
       t.integer :price
       t.integer :weight
+      t.integer :did
+      t.integer :didnot
+      
       
       t.timestamps null: false
     end

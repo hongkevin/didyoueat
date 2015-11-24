@@ -8,6 +8,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="slick.css">
+  <link rel="stylesheet" href="slick-theme.css">
+  <link rel="stylesheet" href="main.css">
+  
 </head>
 <body>
 
@@ -20,13 +24,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">가성비닷컴</a>
+      <a class="navbar-brand" href="/">이거먹어봤음?</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/home/index">전체보기</a></li>
-        <li><a href="/home/upload">신상품등록</a></li>
         <% if user_signed_in? %>
+          <li><a href="/home/upload">신상등록</a></li>
           <li><a href="#"><%= current_user.email %></a></li>
           <li><a href="/users/sign_out" data-method="get">로그아웃</a></li>
         <% else %>
@@ -35,13 +38,14 @@
         <% end %>
       </ul>
       <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search...">
+        <input type="text" class="form-control" placeholder="미지의 식품을 검색하세요.">
       </form>
     </div>
   </div>
 </nav>
-
 <%= yield %>
+
+
 
 </body>
 </html>

@@ -1,53 +1,117 @@
+<div class="slides">
+<% for i in 0..4 %>
+<% case i%3 %>
+  <% when 0  %>
+    <div class="wrap" style="background-image:url(https://s3-ap-northeast-1.amazonaws.com/img.prod.mp/main_feature/htr7ze3vjwg73o.jpg)">
+  <% when 1 %>
+    <div class="wrap" style="background-image:url(https://s3-ap-northeast-1.amazonaws.com/img.prod.mp/main_feature/79_7ehjsoygl7m.jpg)">
+  <% when 2 %>
+    <div class="wrap" style="background-image:url(https://s3-ap-northeast-1.amazonaws.com/img.prod.mp/main_feature/dy_vdicqylxcsp.jpg)">
+  <% end %>
+      <div class="main_content">
+        <div class="main_top">
+          <span>
+            <a href="/home/detail/<%= @sampleHash[i].id %>">
+              <h1 id="main_title"><%= @sampleHash[i].name %></h1>
+              <p class="lead main_desc"><%= @sampleHash[i].desc %></p>
+            </a>
+          </span>
+        </div>
+        <div class="main_bottom">
+          <img src="<%= @sampleHash[i].img %>" class="main_image">
+          <p>
+            <a class="btn btn-lg btn-primary" href="#" id="submit_button" role="button">먹어봤음 <%= @sampleHash[i].did.to_i %></a>&nbsp&nbsp
+            <a class="btn btn-lg btn-danger" href="#" id="submit_button2" role="button">못먹어봄 <%= @sampleHash[i].didnot.to_i %></a>
+          </p>
+        </div>
+      </div>
+    </div>
+<% end %>  
+</div>
+
 <div class="container-fluid">
   <div class="row">
-    
     <div class="col-sm-1 col-md-1">
     </div>
-    
     <div class="col-sm-10 col-md-10">
+        <!--
         <div class="jumbotron">
             <h1><%= @banner.name %></h1>
             <p class="lead"><%= @banner.desc %></p>
             <img src="<%= @banner.img %>" width="300px"><p></p>
-            <span class="star-rating">
-              <input type="radio" name="rating" value="1"><i></i>
-              <input type="radio" name="rating" value="2"><i></i>
-              <input type="radio" name="rating" value="3"><i></i>
-              <input type="radio" name="rating" value="4"><i></i>
-              <input type="radio" name="rating" value="5"><i></i>
-            </span>
-            <p><a class="btn btn-lg btn-success" href="/home/detail/<%= @banner.id %>" role="button"><%= @gsb_banner %>원/g</a></p>
-            <h5><%= @banner.price %>원, <%= @banner.weight %>g</h5>
+            <p>
+              <a class="btn btn-lg btn-primary" href="#" id="submit_button" role="button">먹어봤음 <%= @banner.did.to_i %></a>&nbsp&nbsp
+              <a class="btn btn-lg btn-danger" href="#" id="submit_button2" role="button">못먹어봄 <%= @banner.didnot.to_i %></a>
+            </p>
+            <p><a class="btn-sm btn-success" href="/home/detail/<%= @banner.id %>" role="button">자세히 보기</a></p>
         </div>
-
-      <h1 class="page-header">평가상품</h1>
-
+        -->
+        
+      <h1 class="page-header">안 먹었을 것 같은 상품</h1>      
       <div class="row placeholders">
         <% @pros.each do |p| %>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="<%= p.img.url %>" class="img-responsive" alt="Generic placeholder thumbnail">
-          <h4><%= p.name %></h4>
-          <span class="star-rating small_star">
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-          </span>
-          <p>  
-          <% unless p.weight.to_i == 0 %>
-            <h5>창렬지수: &nbsp <%= p.price.to_i / p.weight.to_i %></h5>
-          <% end %>
-          </p>
-          <span class="text-muted"></span>
-        <p><a class="btn btn-sm btn-success" href="/home/detail/<%= p.id %>" role="button">자세히 보기</a></p>
-        </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="list-wrap">
+                <div class="list-top">
+                  <a href="/home/detail/<%= p.id %>"><img src="<%= p.img.url %>" class="img-responsive img-rounded list-image" alt="productImage"></a>
+                  <span class="list-title"><%= p.name %></span><br/>
+                </div>
+                  <% unless p.weight.to_i == 0 %>
+                    <span class="newper">신상지수: &nbsp <%= p.didnot.to_i - p.did.to_i %></span><br />
+                  <% end %>
+                <span class="left-box"><a class="btn btn-sm btn-primary" role="button">먹어봤음 <%= p.did.to_i %></a></span>
+                <span class="middle-box"><a class="btn btn-sm btn-danger" role="button">못먹어봄 <%= p.didnot.to_i %></a></span>
+                <span class="right-box"><a class="btn btn-sm btn-success" href="/home/detail/<%= p.id %>" role="button">자세히 보기</a></span>
+              </div>
+            </div>
         <% end %>
       </div>
     </div>
     
     <div class="col-sm-1 col-md-1">
     </div>
-  
   </div>
 </div>
+
+<script>
+  $("#submit_button").click(
+    function() {
+      $.ajax({
+        data: {content: 1, id: <%= @sampleHash[i].id %>},
+        url: "/home/send_like",
+        success: function(){
+          var update_number = <%= @sampleHash[i].did.to_i %> + 1;
+          $("#submit_button").empty();
+          $("#submit_button").append("먹어봤음 " + update_number);
+        }
+      });
+    }
+  );
+  
+  $("#submit_button2").click(
+    function() {
+      $.ajax({
+        data: {content: 1, id: <%= @sampleHash[i].id %>},
+        url: "/home/send_dislike",
+        success: function(){
+          var update_number = <%= @sampleHash[i].didnot.to_i %> + 1;
+          $("#submit_button2").empty();
+          $("#submit_button2").append("못먹어봄 " + update_number);
+        }
+      });
+    }
+  );  
+</script>
+
+<script src="jquery-1.11.3.min.js"></script>
+<script src="slick.min.js"></script>
+
+<script>
+  $(".slides").slick({
+    fade: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+    dots: true
+  });
+</script>
